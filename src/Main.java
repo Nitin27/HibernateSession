@@ -3,6 +3,8 @@ import org.hibernate.query.Query;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.metamodel.EntityType;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 
 public class Main {
@@ -24,15 +26,17 @@ public class Main {
     }
 
     void addAuthor() {
-        Author author = new Author();
-        author.setFirstName("Amit");
-        author.setLastName("Shah");
-        author.setAge(40);
         try (Session session = getSession()) {
+            Author author = new Author();
+            author.setFirstName("Amit");
+            author.setLastName("Shah");
+            author.setAge(40);
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/M/yyyy");
+            author.setDateOfBirth(simpleDateFormat.parse("23/10/1945"));
             session.beginTransaction();
             session.save(author);
             session.getTransaction().commit();
-        }
+        }catch (ParseException e){e.printStackTrace();}
     }
 
     void updateAuthor() {

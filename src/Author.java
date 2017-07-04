@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table
@@ -9,14 +10,19 @@ public class Author {
     private String firstName;
     private String lastName;
     private int age;
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
     public Author() {
+
     }
 
-    public Author(String firstName, String lastName, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getFirstName() {
@@ -49,6 +55,6 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Id: "+id+"  FirstName: "+firstName+"    LastName: "+lastName+"  Age: "+age;
+        return "Id: "+id+"  FirstName: "+firstName+"    LastName: "+lastName+"  Age: "+age+"    DateOfBirth: "+dateOfBirth;
     }
 }
