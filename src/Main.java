@@ -98,5 +98,14 @@ public class Main {
         crud.deleteAuthor();
         queryDB();
         ourSessionFactory.close();
+
+        SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+        Session session=sessionFactory.openSession();
+        session.beginTransaction();
+        Author author=session.get(Author.class,1);
+        session.getTransaction().commit();
+        session.close();
+        System.out.println(author);
+        sessionFactory.close();
     }
 }
