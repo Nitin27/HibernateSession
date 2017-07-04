@@ -1,7 +1,17 @@
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String firstName;
     private String lastName;
     private int age;
+
+    public Author() {
+    }
 
     public Author(String firstName, String lastName, int age) {
         this.firstName = firstName;
@@ -31,5 +41,14 @@ public class Author {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Id: "+id+"  FirstName: "+firstName+"    LastName: "+lastName+"  Age: "+age;
     }
 }
