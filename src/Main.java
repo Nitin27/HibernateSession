@@ -25,18 +25,20 @@ public class Main {
         return ourSessionFactory.openSession();
     }
 
-    void addAuthor() {
+    void addAuthor(String fName, String lName, int age, String dob) {
         try (Session session = getSession()) {
             Author author = new Author();
-            author.setFirstName("Amit");
-            author.setLastName("Shah");
-            author.setAge(40);
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/M/yyyy");
-            author.setDateOfBirth(simpleDateFormat.parse("23/10/1945"));
+            author.setFirstName(fName);
+            author.setLastName(lName);
+            author.setAge(age);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy");
+            author.setDateOfBirth(simpleDateFormat.parse(dob));
             session.beginTransaction();
             session.save(author);
             session.getTransaction().commit();
-        }catch (ParseException e){e.printStackTrace();}
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     void updateAuthor() {
@@ -54,7 +56,7 @@ public class Main {
         Author author;
         try (Session session = getSession()) {
             session.beginTransaction();
-            author = session.get(Author.class, 1);
+            author = session.get(Author.class, 2);//Record 2 deleted
             session.delete(author);
             session.getTransaction().commit();
         }
@@ -86,12 +88,15 @@ public class Main {
     public static void main(final String[] args) throws Exception {
         Main crud = new Main();
         queryDB();
-        crud.addAuthor();
-        crud.readAuthor();
+        crud.addAuthor("Amit","Shah",40,"23/10/1975");
+        crud.addAuthor("Sumit","Singh",50,"23/10/1965");
+        crud.addAuthor("Aman","Gupta",30,"23/10/1985");
+        crud.addAuthor("Naman","Shah",20,"23/10/1995");
+        queryDB();
         crud.updateAuthor();
         crud.readAuthor();
         crud.deleteAuthor();
-        crud.readAuthor();
+        queryDB();
         ourSessionFactory.close();
     }
 }
