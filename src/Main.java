@@ -88,10 +88,10 @@ public class Main {
     public static void main(final String[] args) throws Exception {
         Main crud = new Main();
         queryDB();
-        crud.addAuthor("Amit","Shah",40,"23/10/1975");
-        crud.addAuthor("Sumit","Singh",50,"23/10/1965");
-        crud.addAuthor("Aman","Gupta",30,"23/10/1985");
-        crud.addAuthor("Naman","Shah",20,"23/10/1995");
+        crud.addAuthor("Amit", "Shah", 40, "23/10/1975");
+        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965");
+        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985");
+        crud.addAuthor("Naman", "Shah", 20, "23/10/1995");
         queryDB();
         crud.updateAuthor();
         crud.readAuthor();
@@ -99,10 +99,10 @@ public class Main {
         queryDB();
         ourSessionFactory.close();
 
-        SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
-        Session session=sessionFactory.openSession();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Author author=session.get(Author.class,1);
+        Author author = session.get(Author.class, 1);
         session.getTransaction().commit();
         session.close();
         System.out.println(author);
