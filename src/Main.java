@@ -25,7 +25,7 @@ public class Main {
         return ourSessionFactory.openSession();
     }
 
-    void addAuthor(String fName, String lName, int age, String dob) {
+    void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state) {
         try (Session session = getSession()) {
             Author author = new Author();
             author.setFirstName(fName);
@@ -33,6 +33,11 @@ public class Main {
             author.setAge(age);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy");
             author.setDateOfBirth(simpleDateFormat.parse(dob));
+            Address address=new Address();
+            address.setStreetNo(streetNo);
+            address.setLocation(location);
+            address.setState(state);
+            author.setAddress(address);
             session.beginTransaction();
             session.save(author);
             session.getTransaction().commit();
@@ -88,10 +93,10 @@ public class Main {
     public static void main(final String[] args) throws Exception {
         Main crud = new Main();
         queryDB();
-        crud.addAuthor("Amit", "Shah", 40, "23/10/1975");
-        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965");
-        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985");
-        crud.addAuthor("Naman", "Shah", 20, "23/10/1995");
+        crud.addAuthor("Amit", "Shah", 40, "23/10/1975","10","ashok vihar","delhi");
+        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965","10","ashok vihar","delhi");
+        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985","10","ashok vihar","delhi");
+        crud.addAuthor("Naman", "Shah", 20, "23/10/1995","10","ashok vihar","delhi");
         queryDB();
         crud.updateAuthor();
         crud.readAuthor();
