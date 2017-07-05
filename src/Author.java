@@ -10,6 +10,7 @@ public class Author {
     private int id;
     @Column(name = "First_Name")
     private String firstName;
+    @Transient
     @Column(name="Last_Name")
     private String lastName;
     @Column(name = "Age")
