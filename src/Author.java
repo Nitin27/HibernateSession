@@ -6,10 +6,15 @@ import java.util.Date;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "AuthorID")
     private int id;
+    @Column(name = "First_Name")
     private String firstName;
+    @Column(name="Last_Name")
     private String lastName;
+    @Column(name = "Age")
     private int age;
+    @Column(name = "Date_Of_Birth")
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
