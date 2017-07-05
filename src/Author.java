@@ -16,7 +16,7 @@ public class Author {
     @Column(name = "Age")
     private int age;
     @Column(name = "Date_Of_Birth")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)//Temporal annotation used for date type
     private Date dateOfBirth;
 
     public Author() {
