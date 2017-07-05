@@ -5,7 +5,7 @@ import java.util.Date;
 @Table
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//Automatic Id generation using table generation strategy as identity
     @Column(name = "AuthorID")
     private int id;
     @Column(name = "First_Name")
