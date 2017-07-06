@@ -22,4 +22,9 @@ public class Book {
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
+
+    @Override
+    public String toString() {
+        return "BOOK ID : " + bookId + "BOOK NAME : "+bookName;
+    }
 }

@@ -25,7 +25,7 @@ public class Main {
         return ourSessionFactory.openSession();
     }
 
-    void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state, List<String> subject) {
+    void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state, List<String> subject, Book book) {
         try (Session session = getSession()) {
             Author author = new Author();
             author.setFirstName(fName);
@@ -38,6 +38,7 @@ public class Main {
             address.setLocation(location);
             address.setState(state);
             author.setAddress(address);
+            author.setBook(book);
             session.beginTransaction();
             session.persist(author);
             author.setSubjects(subject);
@@ -91,6 +92,11 @@ public class Main {
             }
         }
     }
+    Book addBook(String bookName){
+        Book book=new Book();
+        book.setBookName(bookName);
+        return book;
+    }
 
     public static void main(final String[] args) throws Exception {
         Main crud = new Main();
@@ -99,10 +105,14 @@ public class Main {
         subjectList.add("English");
         subjectList.add("Hindi");
         queryDB();
-        crud.addAuthor("Amit", "Shah", 40, "23/10/1975","10","ashok vihar","delhi",subjectList);
-        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965","10","ashok vihar","delhi",subjectList);
-        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985","10","ashok vihar","delhi",subjectList);
-        crud.addAuthor("Naman", "Shah", 20, "23/10/1995","10","ashok vihar","delhi",subjectList);
+        Book b1=crud.addBook("Jungle Book");
+        Book b2=crud.addBook("Oliver Twist");
+        Book b3=crud.addBook("Tom Sawyer");
+        Book b4=crud.addBook("Harry Potter");
+        crud.addAuthor("Amit", "Shah", 40, "23/10/1975","10","ashok vihar","delhi",subjectList,b1);
+        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965","10","ashok vihar","delhi",subjectList,b2);
+        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985","10","ashok vihar","delhi",subjectList,b3);
+        crud.addAuthor("Naman", "Shah", 20, "23/10/1995","10","ashok vihar","delhi",subjectList,b4);
         queryDB();
         crud.updateAuthor();
         crud.readAuthor();

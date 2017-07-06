@@ -14,6 +14,17 @@ public class Author {
     private int age;
     @ElementCollection
     private List<String> subjects;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_ID")
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
     public List<String> getSubjects() {
         return subjects;
@@ -86,6 +97,7 @@ public class Author {
         return "Id: " + id + "  FirstName: " + firstName +
                 "    LastName: " + lastName + "  Age: " + age +
                 "    DateOfBirth: " + dateOfBirth +
-                "    Address: "+address+ "  Subject: "+subjects;
+                "    \nAddress: "+address+ "  Subject: "+subjects+
+                "    Book: "+book;
     }
 }
