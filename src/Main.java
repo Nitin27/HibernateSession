@@ -1,11 +1,11 @@
 import org.hibernate.*;
 import org.hibernate.query.Query;
 import org.hibernate.cfg.Configuration;
-
 import javax.persistence.metamodel.EntityType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     private static final SessionFactory ourSessionFactory;
@@ -25,7 +25,7 @@ public class Main {
         return ourSessionFactory.openSession();
     }
 
-    void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state) {
+    void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state, List<String> subject) {
         try (Session session = getSession()) {
             Author author = new Author();
             author.setFirstName(fName);
@@ -39,7 +39,9 @@ public class Main {
             address.setState(state);
             author.setAddress(address);
             session.beginTransaction();
-            session.save(author);
+            session.persist(author);
+            author.setSubjects(subject);
+
             session.getTransaction().commit();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -92,25 +94,20 @@ public class Main {
 
     public static void main(final String[] args) throws Exception {
         Main crud = new Main();
+        List<String> subjectList=new ArrayList<>();
+        subjectList.add("Maths");
+        subjectList.add("English");
+        subjectList.add("Hindi");
         queryDB();
-        crud.addAuthor("Amit", "Shah", 40, "23/10/1975","10","ashok vihar","delhi");
-        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965","10","ashok vihar","delhi");
-        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985","10","ashok vihar","delhi");
-        crud.addAuthor("Naman", "Shah", 20, "23/10/1995","10","ashok vihar","delhi");
+        crud.addAuthor("Amit", "Shah", 40, "23/10/1975","10","ashok vihar","delhi",subjectList);
+        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965","10","ashok vihar","delhi",subjectList);
+        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985","10","ashok vihar","delhi",subjectList);
+        crud.addAuthor("Naman", "Shah", 20, "23/10/1995","10","ashok vihar","delhi",subjectList);
         queryDB();
         crud.updateAuthor();
         crud.readAuthor();
         crud.deleteAuthor();
         queryDB();
         ourSessionFactory.close();
-
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Author author = session.get(Author.class, 1);
-        session.getTransaction().commit();
-        session.close();
-        System.out.println(author);
-        sessionFactory.close();
     }
 }

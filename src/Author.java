@@ -1,5 +1,7 @@
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -11,8 +13,19 @@ public class Author {
     private String firstName;
     private String lastName;
     private int age;
+    @ElementCollection
+    private List<String> subjects;
+
+    public List<String> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<String> subjects) {
+        this.subjects = subjects;
+    }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
@@ -24,7 +37,6 @@ public class Author {
         this.address = address;
     }
 
-    @Column(name = "Date_Of_Birth")
     @Temporal(TemporalType.DATE)//Temporal annotation used for date type
     private Date dateOfBirth;
     @Embedded
@@ -72,6 +84,9 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Id: " + id + "  FirstName: " + firstName + "    LastName: " + lastName + "  Age: " + age + "    DateOfBirth: " + dateOfBirth +" Address: "+address;
+        return "Id: " + id + "  FirstName: " + firstName +
+                "    LastName: " + lastName + "  Age: " + age +
+                "    DateOfBirth: " + dateOfBirth +
+                "    Address: "+address+ "  Subject: "+subjects;
     }
 }
