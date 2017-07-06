@@ -11,6 +11,8 @@
         <property name="connection.autocommit">true</property>
         <property name="connection.pool_size">10</property>
         <property name="hbm2ddl.auto">create</property>
+
+        <mapping class="Book"></mapping>
         <mapping class="Author"></mapping>
 
     </session-factory>
