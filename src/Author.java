@@ -1,4 +1,6 @@
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +16,15 @@ public class Author {
     private int age;
     @ElementCollection
     private List<String> subjects;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "book_ID")
-    private Book book;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "bookId"),inverseJoinColumns = @JoinColumn(name = "AuthorId"))
+    private Collection<Book> book=new ArrayList<>();
 
-    public Book getBook() {
+    public Collection<Book> getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(Collection<Book> book) {
         this.book = book;
     }
 

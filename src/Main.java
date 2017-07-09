@@ -1,10 +1,12 @@
 import org.hibernate.*;
 import org.hibernate.query.Query;
 import org.hibernate.cfg.Configuration;
+
 import javax.persistence.metamodel.EntityType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Main {
@@ -21,26 +23,37 @@ public class Main {
         }
     }
 
-    static Session getSession() throws HibernateException {
+    private static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
-    void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state, List<String> subject, Book book) {
+    void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state, List<String> subject) {
         try (Session session = getSession()) {
             Author author = new Author();
+            Book b1=new Book();
+            Book b2=new Book();
+            b1.setBookName("Oliver Twist");
+            b2.setBookName("Christmas Carol");
+            author.getBook().add(b1);
+            author.getBook().add(b2);
+
             author.setFirstName(fName);
             author.setLastName(lName);
             author.setAge(age);
+
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy");
             author.setDateOfBirth(simpleDateFormat.parse(dob));
-            Address address=new Address();
+
+            Address address = new Address();
             address.setStreetNo(streetNo);
             address.setLocation(location);
             address.setState(state);
             author.setAddress(address);
-            author.setBook(book);
+
             session.beginTransaction();
-            session.persist(author);
+            session.save(author);
+            session.save(b1);
+            session.save(b2);
             author.setSubjects(subject);
 
             session.getTransaction().commit();
@@ -92,32 +105,38 @@ public class Main {
             }
         }
     }
-    Book addBook(String bookName){
-        Book book=new Book();
+
+    Book addBook(String bookName) {
+        Book book = new Book();
         book.setBookName(bookName);
         return book;
     }
 
     public static void main(final String[] args) throws Exception {
         Main crud = new Main();
-        List<String> subjectList=new ArrayList<>();
+
+        List<String> subjectList = new ArrayList<>();
+
         subjectList.add("Maths");
         subjectList.add("English");
         subjectList.add("Hindi");
+
         queryDB();
-        Book b1=crud.addBook("Jungle Book");
-        Book b2=crud.addBook("Oliver Twist");
-        Book b3=crud.addBook("Tom Sawyer");
-        Book b4=crud.addBook("Harry Potter");
-        crud.addAuthor("Amit", "Shah", 40, "23/10/1975","10","ashok vihar","delhi",subjectList,b1);
-        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965","10","ashok vihar","delhi",subjectList,b2);
-        crud.addAuthor("Aman", "Gupta", 30, "23/10/1985","10","ashok vihar","delhi",subjectList,b3);
-        crud.addAuthor("Naman", "Shah", 20, "23/10/1995","10","ashok vihar","delhi",subjectList,b4);
+
+        crud.addAuthor("Amit", "Shah", 40, "23/10/1975", "10", "ashok vihar", "delhi", subjectList);
+        crud.addAuthor("Sumit", "Singh", 50, "23/10/1965", "10", "ashok vihar", "delhi", subjectList);
+        crud.addAuthor("Naman", "Shah", 20, "23/10/1995", "10", "ashok vihar", "delhi", subjectList);
+
         queryDB();
+
         crud.updateAuthor();
+
         crud.readAuthor();
+
         crud.deleteAuthor();
+
         queryDB();
+
         ourSessionFactory.close();
     }
 }
