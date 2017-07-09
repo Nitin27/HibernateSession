@@ -7,6 +7,16 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
     private String bookName;
+    @ManyToOne
+    Author author;
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
     public Book() {
     }
@@ -25,6 +35,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return "BOOK ID : " + bookId + "BOOK NAME : "+bookName;
+        return "BOOK ID : " + bookId + "    BOOK NAME : "+bookName;
     }
 }
