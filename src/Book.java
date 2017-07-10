@@ -8,6 +8,7 @@ public class Book {
     private int bookId;
     private String bookName;
     @ManyToOne
+    @JoinColumn(name = "authorId" , referencedColumnName = "id")
     Author author;
 
     public Author getAuthor() {

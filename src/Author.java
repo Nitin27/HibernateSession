@@ -16,8 +16,7 @@ public class Author {
     private int age;
     @ElementCollection
     private List<String> subjects;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name = "bookId"),inverseJoinColumns = @JoinColumn(name = "AuthorId"))
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "author")
     private Collection<Book> book=new ArrayList<>();
 
     public Collection<Book> getBook() {
