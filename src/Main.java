@@ -30,8 +30,8 @@ public class Main {
     void addAuthor(String fName, String lName, int age, String dob, String streetNo, String location, String state, List<String> subject) {
         try (Session session = getSession()) {
             Author author = new Author();
-            Book b1=new Book();
-            Book b2=new Book();
+            Book b1 = new Book();
+            Book b2 = new Book();
             b1.setBookName("Oliver Twist");
             b2.setBookName("Christmas Carol");
             author.getBook().add(b1);
@@ -49,6 +49,8 @@ public class Main {
             address.setLocation(location);
             address.setState(state);
             author.setAddress(address);
+            b1.setAuthor(author);
+            b2.setAuthor(author);
 
             session.beginTransaction();
             session.save(author);
@@ -137,6 +139,6 @@ public class Main {
 
         queryDB();
 
-        ourSessionFactory.close();
+        //ourSessionFactory.close();
     }
 }
