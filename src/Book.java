@@ -7,17 +7,16 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
     private String bookName;
-//    @ManyToOne
-//    @JoinColumn(name = "authorId" , referencedColumnName = "id")
-//    Author author;
+    @ManyToOne
+    Author author;
 
-//    public Author getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(Author author) {
-//        this.author = author;
-//    }
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
     public Book() {
     }
