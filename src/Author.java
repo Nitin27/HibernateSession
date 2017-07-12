@@ -1,3 +1,5 @@
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +18,8 @@ public class Author {
     private int age;
     @ElementCollection
     private List<String> subjects;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "author")
+    @OneToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Collection<Book> book=new ArrayList<>();
 
     public Collection<Book> getBook() {
@@ -36,7 +39,6 @@ public class Author {
     }
 
     public void setId(int id) {
-
         this.id = id;
     }
 
@@ -54,7 +56,6 @@ public class Author {
     private Address address;
 
     public Author() {
-
     }
 
     public Date getDateOfBirth() {

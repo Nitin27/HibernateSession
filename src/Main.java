@@ -49,14 +49,13 @@ public class Main {
             address.setLocation(location);
             address.setState(state);
             author.setAddress(address);
-            b1.setAuthor(author);
-            b2.setAuthor(author);
+
+            author.setSubjects(subject);
 
             session.beginTransaction();
+//            session.save(b1);
+//            session.save(b2);
             session.save(author);
-            session.save(b1);
-            session.save(b2);
-            author.setSubjects(subject);
 
             session.getTransaction().commit();
         } catch (ParseException e) {
