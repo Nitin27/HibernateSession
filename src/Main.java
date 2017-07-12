@@ -37,8 +37,8 @@ public class Main {
             author.getBook().add(b1);
             author.getBook().add(b2);
 
-            b1.setAuthor(author);
-            b2.setAuthor(author);
+            b1.getAuthor().add(author);
+            b2.getAuthor().add(author);
 
             author.setFirstName(fName);
             author.setLastName(lName);
@@ -56,8 +56,8 @@ public class Main {
             author.setSubjects(subject);
 
             session.beginTransaction();
-            session.save(b1);
-            session.save(b2);
+//            session.save(b1);
+//            session.save(b2);
             session.save(author);
 
             session.getTransaction().commit();
@@ -133,9 +133,9 @@ public class Main {
 
         queryDB();
 
-        crud.updateAuthor();
+//        crud.updateAuthor();
 
-        crud.readAuthor();
+//        crud.readAuthor();
 
 //        crud.deleteAuthor();
 //

@@ -1,20 +1,22 @@
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int bookId;
     private String bookName;
-    @ManyToOne
-    Author author;
+    @ManyToMany
+    Collection<Author> author =new ArrayList<>();
 
-    public Author getAuthor() {
+    public Collection<Author> getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(Collection<Author> author) {
         this.author = author;
     }
 

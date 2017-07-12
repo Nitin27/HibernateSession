@@ -10,7 +10,7 @@ import java.util.List;
 @Table
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 //Automatic Id generation using table generation strategy as identity
     private int id;
     private String firstName;
@@ -18,8 +18,8 @@ public class Author {
     private int age;
     @ElementCollection
     private List<String> subjects;
-    @OneToMany(mappedBy = "author")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToMany(cascade = CascadeType.ALL)
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Collection<Book> book=new ArrayList<>();
 
     public Collection<Book> getBook() {
