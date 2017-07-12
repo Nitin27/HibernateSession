@@ -18,7 +18,7 @@ public class Author {
     private int age;
     @ElementCollection
     private List<String> subjects;
-    @OneToMany
+    @OneToMany(mappedBy = "author")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Collection<Book> book=new ArrayList<>();
 

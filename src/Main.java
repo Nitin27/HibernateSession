@@ -141,6 +141,6 @@ public class Main {
 //
 //        queryDB();
 
-        //ourSessionFactory.close();
+        ourSessionFactory.close();
     }
 }
